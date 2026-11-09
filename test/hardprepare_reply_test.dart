@@ -104,8 +104,8 @@ void main() {
       addTearDown(settings.dispose);
       await settings.saveServerProfile(
         name: 'Alem.ai',
-        endpoint: alemQwenEndpoint,
-        model: alemQwenModel,
+        endpoint: alemEndpoint,
+        model: alemModel,
         apiKey: 'fixture-key',
         contextWindowTokens: AiModelProfile.defaultContextWindowTokens,
       );
@@ -113,11 +113,11 @@ void main() {
         () => HardPrepareReplyService(settings: settings),
         () => MockClient((request) async {
           calls++;
-          expect(request.url.toString(), alemQwenEndpoint);
+          expect(request.url.toString(), alemEndpoint);
           expect(request.headers['authorization'], 'Bearer fixture-key');
           expect(request.followRedirects, isFalse);
           final body = jsonDecode(utf8.decode(request.bodyBytes)) as Map;
-          expect(body['model'], alemQwenModel);
+          expect(body['model'], alemModel);
           expect(body['messages'], [
             {'role': 'system', 'content': contains('HardPrepare')},
             {'role': 'user', 'content': brief},

@@ -845,9 +845,25 @@ void main() {
   });
 
   group('hosted AI endpoint validation', () {
+    test('preserves versionless and versioned chat completion URLs', () {
+      const style = AiEndpointStyle.openAiChatCompletions;
+      for (final prefix in ['', '/v1', '/custom/v2']) {
+        final endpoint = Uri.parse(
+          'https://llm.alem.ai$prefix/chat/completions',
+        );
+        expect(style.requestUriFor(endpoint), endpoint);
+        expect(
+          style.modelsUriFor(endpoint).toString(),
+          'https://llm.alem.ai$prefix/models',
+        );
+        expect(AiEndpointStyle.inferFromEndpoint(endpoint.toString()), style);
+      }
+    });
+
     test('accepts supported HTTPS styles and HTTP loopback URLs', () {
       const valid = [
         'https://api.openai.com/v1/chat/completions',
+        'https://llm.alem.ai/chat/completions',
         'https://api.openai.com/v1/responses',
         'https://api.anthropic.com/v1/messages',
         'https://ai.example.com:8443/v1/chat/completions',
@@ -893,7 +909,6 @@ void main() {
         'http://api.example.com/v1/chat/completions',
         'ftp://localhost/v1/chat/completions',
         'https://api.example.com/v1/chat/completions/',
-        'https://api.example.com/chat/completions',
         'https://api.example.com/v1/chat/completions?key=secret',
         'https://api.example.com/v1/chat/completions#fragment',
         'https://user:secret@api.example.com/v1/chat/completions',

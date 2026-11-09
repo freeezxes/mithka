@@ -18,7 +18,7 @@ Mithka поддерживает импорт строки GramJS в раздел
 
 ## Модель
 
-По умолчанию Inbox предлагает подключить Qwen 3.6 через API Alem.ai. Откройте подсказку или **Settings → AI → Providers → Alem.ai** и сохраните API-ключ Qwen 3.6. Inbox настроит модель `qwen3-6` и адрес `https://llm.alem.ai/v1/chat/completions`. [Документация Alem Plus](https://doc.alem.ai/services/qwen36.html)
+По умолчанию Inbox предлагает подключить GPT OSS через API Alem.ai. Откройте подсказку или **Settings → Advanced → AI Settings → Providers → Alem.ai** и сохраните API-ключ GPT OSS. Inbox настроит модель `gpt-oss` и адрес `https://llm.alem.ai/chat/completions`.
 
 Подсказка использует выбранную серверную модель. Поддерживаются OpenAI Chat Completions, OpenAI Responses, Anthropic Messages и явно настроенный Ollama. Диалог показывает адрес и название модели перед генерацией.
 

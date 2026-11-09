@@ -93,6 +93,9 @@ enum AiEndpointStyle {
   static AiEndpointStyle? inferFromEndpoint(String value) {
     final path = Uri.tryParse(value.trim())?.path;
     if (path == null) return null;
+    if (path.endsWith('/chat/completions')) {
+      return openAiChatCompletions;
+    }
     for (final style in values) {
       if (path.endsWith(style.endpointSuffix)) return style;
     }
@@ -104,7 +107,8 @@ enum AiEndpointStyle {
     while (path.endsWith('/') && path.length > 1) {
       path = path.substring(0, path.length - 1);
     }
-    if (path.endsWith(endpointSuffix)) {
+    if (path.endsWith(endpointSuffix) ||
+        (this == openAiChatCompletions && path.endsWith('/chat/completions'))) {
       return configuredUri.replace(path: path);
     }
 
@@ -120,6 +124,12 @@ enum AiEndpointStyle {
   Uri modelsUriFor(Uri requestUri) {
     final normalizedRequestUri = requestUriFor(requestUri);
     final path = normalizedRequestUri.path;
+    if (this == openAiChatCompletions) {
+      return normalizedRequestUri.replace(
+        path:
+            '${path.substring(0, path.length - '/chat/completions'.length)}/models',
+      );
+    }
     final prefix = path.substring(0, path.length - endpointSuffix.length);
     final modelsSuffix = switch (this) {
       AiEndpointStyle.ollamaChat => '/api/tags',

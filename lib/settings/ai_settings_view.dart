@@ -389,15 +389,15 @@ class AiProviderListView extends StatelessWidget {
                 onTap: () => _push(context, const AiProviderEditorView()),
               ),
               if (!providers.any(
-                (provider) => provider.endpoint == alemQwenEndpoint,
+                (provider) => provider.endpoint == alemEndpoint,
               ))
                 SettingsRow(
                   title: 'Alem.ai',
-                  subtitle: 'Qwen 3.6',
+                  subtitle: 'GPT OSS',
                   leading: const SettingsLeadingIcon(icon: HeroAppIcons.server),
                   onTap: () => _push(
                     context,
-                    const AiProviderEditorView(alemQwen: true),
+                    const AiProviderEditorView(alemPreset: true),
                   ),
                 ),
             ],
@@ -416,12 +416,12 @@ class AiProviderEditorView extends StatefulWidget {
     super.key,
     this.provider,
     this.initialApiKey = '',
-    this.alemQwen = false,
+    this.alemPreset = false,
   });
 
   final AiServerProvider? provider;
   final String initialApiKey;
-  final bool alemQwen;
+  final bool alemPreset;
 
   @override
   State<AiProviderEditorView> createState() => _AiProviderEditorViewState();
@@ -439,12 +439,11 @@ class _AiProviderEditorViewState extends State<AiProviderEditorView> {
   void initState() {
     super.initState();
     _name = TextEditingController(
-      text: widget.provider?.name ?? (widget.alemQwen ? 'Alem.ai' : ''),
+      text: widget.provider?.name ?? (widget.alemPreset ? 'Alem.ai' : ''),
     );
     _endpoint = TextEditingController(
       text:
-          widget.provider?.endpoint ??
-          (widget.alemQwen ? alemQwenEndpoint : ''),
+          widget.provider?.endpoint ?? (widget.alemPreset ? alemEndpoint : ''),
     );
     _apiKey = TextEditingController(text: widget.initialApiKey);
     _endpointStyle =
@@ -463,8 +462,8 @@ class _AiProviderEditorViewState extends State<AiProviderEditorView> {
   Widget build(BuildContext context) {
     final c = context.colors;
     return SettingsPageScaffold(
-      title: widget.alemQwen
-          ? 'Alem.ai · Qwen 3.6'
+      title: widget.alemPreset
+          ? 'Alem.ai · GPT OSS'
           : (widget.provider == null
                     ? AppStringKeys.aiAddProvider
                     : AppStringKeys.aiEditProvider)
@@ -472,9 +471,9 @@ class _AiProviderEditorViewState extends State<AiProviderEditorView> {
       onBack: () => Navigator.of(context).pop(),
       child: SettingsListView(
         children: [
-          if (widget.alemQwen)
-            const SettingsNote(text: 'Укажите API-ключ Qwen 3.6 из Alem Plus.'),
-          if (!widget.alemQwen) ...[
+          if (widget.alemPreset)
+            const SettingsNote(text: 'Укажите API-ключ Alem.ai для GPT OSS.'),
+          if (!widget.alemPreset) ...[
             _inputField(
               context,
               controller: _name,
@@ -555,7 +554,7 @@ class _AiProviderEditorViewState extends State<AiProviderEditorView> {
 
   Future<void> _save() async {
     if (_saving) return;
-    if (widget.alemQwen && _apiKey.text.trim().isEmpty) {
+    if (widget.alemPreset && _apiKey.text.trim().isEmpty) {
       showToast(context, 'Введите API-ключ Alem.ai.');
       return;
     }
@@ -569,10 +568,10 @@ class _AiProviderEditorViewState extends State<AiProviderEditorView> {
         apiKey: _apiKey.text,
         endpointStyle: _endpointStyle,
       );
-      if (widget.alemQwen) {
+      if (widget.alemPreset) {
         await settings.saveModelProfile(
           providerId: provider.id,
-          model: alemQwenModel,
+          model: alemModel,
           contextWindowTokens: AiModelProfile.defaultContextWindowTokens,
         );
       }

@@ -10,8 +10,8 @@ import 'ai_endpoint_style.dart';
 import 'apple_pcc_api.dart';
 import 'openai_compatible_models_api.dart';
 
-const alemQwenEndpoint = 'https://llm.alem.ai/v1/chat/completions';
-const alemQwenModel = 'qwen3-6';
+const alemEndpoint = 'https://llm.alem.ai/chat/completions';
+const alemModel = 'gpt-oss';
 
 const defaultAiReplyPrompt = '''
 Reply naturally and concisely in my usual tone. Address the latest question or
@@ -1207,7 +1207,11 @@ class AiSettingsController extends ChangeNotifier {
         endpointStyle ??
         AiEndpointStyle.inferFromEndpoint(trimmed) ??
         AiEndpointStyle.openAiChatCompletions;
-    if (!uri.path.endsWith(resolvedStyle.endpointSuffix)) {
+    final matchesPath =
+        uri.path.endsWith(resolvedStyle.endpointSuffix) ||
+        (resolvedStyle == AiEndpointStyle.openAiChatCompletions &&
+            uri.path.endsWith('/chat/completions'));
+    if (!matchesPath) {
       throw FormatException(
         'The server endpoint path must end in '
         '${resolvedStyle.endpointSuffix}.',

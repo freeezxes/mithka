@@ -38,8 +38,8 @@ class HardPrepareReplyService {
       _apiKey = settings!.apiKeyForServerProvider(provider.id);
     } else {
       _style = AiEndpointStyle.openAiChatCompletions;
-      _endpoint = Uri.parse(alemQwenEndpoint);
-      model = alemQwenModel;
+      _endpoint = Uri.parse(alemEndpoint);
+      model = alemModel;
       _apiKey = '';
     }
   }
@@ -76,9 +76,7 @@ class HardPrepareReplyService {
               instructions: _instructions,
               input: input,
               stream: false,
-              maximumOutputTokens: isAlem && model == alemQwenModel
-                  ? 1800
-                  : 300,
+              maximumOutputTokens: isAlem && model == alemModel ? 1800 : 300,
             ),
           );
     final response = await _client

@@ -3128,7 +3128,7 @@ class _ChatInputBarState extends State<ChatInputBar>
         (settings.activeModelProfile == null ||
             settings.activeServerProvider == null)) {
       final provider = settings.serverProviders
-          .where((provider) => provider.endpoint == alemQwenEndpoint)
+          .where((provider) => provider.endpoint == alemEndpoint)
           .firstOrNull;
       await Navigator.of(context).push<void>(
         AppPageRoute<void>(
@@ -3137,7 +3137,7 @@ class _ChatInputBarState extends State<ChatInputBar>
             initialApiKey: provider == null
                 ? ''
                 : settings.apiKeyForServerProvider(provider.id),
-            alemQwen: true,
+            alemPreset: true,
           ),
         ),
       );
