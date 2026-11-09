@@ -1,5 +1,7 @@
 # Mithka
 
+**HardPrepare Inbox** · [Инструкция по кастомной сборке](docs/hardprepare-inbox.md)
+
 ![Mithka — an independent Telegram client](docs/images/mithka-github-banner.png)
 
 English | [简体中文](README.zh-CN.md)

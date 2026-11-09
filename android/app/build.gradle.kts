@@ -46,7 +46,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "ad.neko.mithka"
+        applicationId = "com.hardprepare.inbox"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         // The prebuilt TDLib (tdjson) artifacts target API 23. The manifest-aware
@@ -59,14 +59,6 @@ android {
         versionName = flutter.versionName
         manifestPlaceholders["sentryDsn"] = sentryDsn
         manifestPlaceholders["sentryEnvironment"] = sentryEnvironment
-    }
-
-    sourceSets {
-        getByName("main") {
-            // Flutter owns src/main/assets during builds; keep this stable source
-            // for Android Developer Verification while packaging it as an APK asset.
-            assets.srcDir("src/developerVerification/assets")
-        }
     }
 
     packaging {

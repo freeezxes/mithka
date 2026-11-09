@@ -82,6 +82,8 @@ import 'emoji_text_controller.dart';
 import 'gif_item.dart';
 import 'gif_preview.dart';
 import 'gif_store.dart';
+import 'hardprepare_reply_dialog.dart';
+import 'hardprepare_reply_service.dart';
 import 'image_edit_view.dart';
 import 'link_handler.dart';
 import 'location_picker_view.dart';
@@ -3107,6 +3109,35 @@ class _ChatInputBarState extends State<ChatInputBar>
     widget.onMessageSent();
     _controller.clear();
     _focus.requestFocus();
+  }
+
+  bool get _canOpenHardPrepareReply =>
+      vm.canSendMessages &&
+      vm.editingMessage == null &&
+      vm.peerUserId != null &&
+      !vm.peerIsBot &&
+      !vm.isSavedMessages &&
+      !vm.isSecretChat &&
+      !vm.hasProtectedContent;
+
+  Future<void> _openHardPrepareReply() async {
+    if (!_canOpenHardPrepareReply) return;
+    final owner = vm;
+    final service = HardPrepareReplyService(
+      settings: context.read<AiSettingsController?>(),
+    );
+    final reply = await showHardPrepareReplyDialog(context, service);
+    if (!mounted ||
+        reply == null ||
+        !identical(vm, owner) ||
+        vm.accountSlot != TdClient.shared.activeSlot ||
+        !_canOpenHardPrepareReply) {
+      return;
+    }
+    final draft = _controller.text;
+    _controller.selection = TextSelection.collapsed(offset: draft.length);
+    _controller.insertText(draft.isEmpty ? reply : '\n\n$reply');
+    _restoreKeyboardFocus();
   }
 
   Future<void> _openTelegramAiEditor() async {
@@ -7351,6 +7382,14 @@ class _ChatInputBarState extends State<ChatInputBar>
             active: false,
             onTap: () => unawaited(_openRichTextComposer()),
           ),
+          if (_canOpenHardPrepareReply)
+            _desktopIcon(
+              key: const ValueKey('desktopComposerHardPrepareReply'),
+              icon: HeroAppIcons.lightbulb,
+              semanticLabel: 'Ответ HardPrepare',
+              active: false,
+              onTap: () => unawaited(_openHardPrepareReply()),
+            ),
           _desktopIcon(
             key: const ValueKey('desktopComposerAiReplyAction'),
             icon: aiReplyWorking
@@ -8792,6 +8831,12 @@ class _ChatInputBarState extends State<ChatInputBar>
 
   Widget _functionPanel() {
     final items = [
+      if (_canOpenHardPrepareReply)
+        (
+          HeroAppIcons.lightbulb.data,
+          hardPrepareReplyLabel,
+          _openHardPrepareReply,
+        ),
       if (widget.showCallAction && !Platform.isMacOS)
         (
           HeroAppIcons.phone.data,
@@ -8901,6 +8946,8 @@ class _ChatInputBarState extends State<ChatInputBar>
   /// truncating; at extreme text sizes the grid becomes a one-column list.
   Widget _simpleMorePanel() {
     final items = <(AppIconData, String, VoidCallback)>[
+      if (_canOpenHardPrepareReply)
+        (HeroAppIcons.lightbulb, hardPrepareReplyLabel, _openHardPrepareReply),
       (HeroAppIcons.image, AppStringKeys.composerImage, _pickPhotos),
       if (widget.phoneStripForTesting || composerShowsCameraIcon())
         (HeroAppIcons.camera, AppStringKeys.composerCamera, _takePhoto),

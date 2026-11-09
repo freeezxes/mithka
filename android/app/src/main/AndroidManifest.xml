@@ -42,7 +42,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <application
-        android:label="Mithka"
+        android:label="HardPrepare Inbox"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="true"
@@ -130,7 +130,7 @@
             android:enabled="true"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -142,7 +142,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_white"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -154,7 +154,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_blue"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -166,7 +166,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_purple"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -178,7 +178,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_pixel"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -190,7 +190,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_aurora"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -202,7 +202,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_prism"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -214,7 +214,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_signal"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -226,7 +226,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_pilot"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -238,7 +238,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_headphones"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -250,7 +250,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_winter"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -262,7 +262,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_astronaut"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -274,7 +274,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_crown"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -286,7 +286,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_party"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -298,7 +298,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_sleepy"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -310,7 +310,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_heart"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -322,7 +322,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_coffee"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -334,7 +334,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_detective"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -346,7 +346,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_gamer"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -358,7 +358,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_fishing"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -375,7 +375,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_skateboard"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -387,7 +387,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_surfboard"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -399,7 +399,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_basketball"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -411,7 +411,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_football"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -423,7 +423,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_tennis"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -435,7 +435,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_skiing"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -447,7 +447,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_painter"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -459,7 +459,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_guitar"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -471,7 +471,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_drummer"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -483,7 +483,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_photographer"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -495,7 +495,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_magician"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -507,7 +507,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_chef"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -519,7 +519,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_reader"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -531,7 +531,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_scientist"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -543,7 +543,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_gardener"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -555,7 +555,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_mail_carrier"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -567,7 +567,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_pirate"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -579,7 +579,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_dragon"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -591,7 +591,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_bubblegum"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -603,7 +603,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_raincoat"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -615,7 +615,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_noodles"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -627,7 +627,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_ice_cream"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -639,7 +639,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_sunflower"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -651,7 +651,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_ninja"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -663,7 +663,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_high_five"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -675,7 +675,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_hug"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -687,7 +687,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_seesaw"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -699,7 +699,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_dance"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -711,7 +711,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_pillow_fight"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -723,7 +723,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_snowball"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -735,7 +735,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_parade"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -747,7 +747,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_choir"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -759,7 +759,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_stack"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -771,7 +771,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_picnic"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -783,7 +783,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_paper_planes"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -795,7 +795,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_stargazing"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -807,7 +807,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_pixel_neutral"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -819,7 +819,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_pixel_gradient"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -831,7 +831,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_letter_m_neutral"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -843,7 +843,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_letter_m_gradient"
-            android:label="Mithka"
+            android:label="HardPrepare Inbox"
             android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
