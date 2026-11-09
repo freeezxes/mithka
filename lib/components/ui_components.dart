@@ -1030,6 +1030,8 @@ class SettingsRow extends StatelessWidget {
     this.trailing,
     this.titleColor,
     this.subtitle,
+    this.subtitleColor,
+    this.subtitleMaxLines = 2,
     this.enabled = true,
   });
 
@@ -1043,6 +1045,8 @@ class SettingsRow extends StatelessWidget {
   final Widget? trailing;
   final Color? titleColor;
   final String? subtitle;
+  final Color? subtitleColor;
+  final int subtitleMaxLines;
   final bool enabled;
 
   /// The height a settings row of [height] actually resolves to. Exposed so a
@@ -1114,9 +1118,11 @@ class SettingsRow extends StatelessWidget {
                       const SizedBox(height: AppSpacing.xxs),
                       Text(
                         subtitle!.l10n(context),
-                        maxLines: 2,
+                        maxLines: subtitleMaxLines,
                         overflow: TextOverflow.ellipsis,
-                        style: AppTextStyle.footnote(c.textTertiary),
+                        style: AppTextStyle.footnote(
+                          subtitleColor ?? c.textTertiary,
+                        ),
                       ),
                     ],
                   ],

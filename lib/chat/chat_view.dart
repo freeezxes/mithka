@@ -112,6 +112,7 @@ import 'forum_topic_transcript.dart';
 import 'forward_markdown.dart';
 import 'forward_options.dart';
 import 'group_remark_controller.dart';
+import 'hardprepare_crm_view.dart';
 import 'hide_sender_dialog.dart';
 import 'image_media_album_bubble.dart';
 import 'image_preview.dart';
@@ -6910,6 +6911,25 @@ class _ChatViewState extends State<ChatView> {
     unawaited(_openChatInfo());
   }
 
+  bool get _hasHardPrepareContact =>
+      _vm.chatKind == ChatKind.privateChat &&
+      (_vm.peerUserId ?? 0) > 0 &&
+      !_vm.isSavedMessages;
+
+  void _openHardPrepareContact() {
+    final telegramId = _vm.peerUserId;
+    if (!_hasHardPrepareContact || telegramId == null) return;
+    final chatName = _vm.peerTitle;
+    unawaited(
+      Navigator.of(context).push<void>(
+        AppPageRoute<void>(
+          pageBuilder: (_, _, _) =>
+              HardPrepareCrmView(telegramId: telegramId, chatName: chatName),
+        ),
+      ),
+    );
+  }
+
   void _handleFullInfoPressed() {
     final onOpenFullInfo = widget.onOpenFullInfo;
     if (onOpenFullInfo != null) {
@@ -8633,6 +8653,13 @@ class _ChatViewState extends State<ChatView> {
                       label: AppStringKeys.chatSearchInThisChat.l10n(context),
                       icon: HeroAppIcons.magnifyingGlass,
                       onTap: _openSearch,
+                    ),
+                  if (_hasHardPrepareContact)
+                    _ChatHeaderAction(
+                      key: const ValueKey('chatHeaderHardPrepareCrm'),
+                      label: 'Карточка клиента HardPrepare',
+                      icon: HeroAppIcons.idBadge,
+                      onTap: _openHardPrepareContact,
                     ),
                   if (_canViewAsMoments)
                     _ChatHeaderAction(
