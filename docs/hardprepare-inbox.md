@@ -24,9 +24,10 @@ Mithka поддерживает импорт строки GramJS в раздел
 
 ## Сборка
 
-Используйте Flutter 3.44.2, Android SDK 36 с NDK 28.2.13676358 и Xcode. Для локальной сборки можно скопировать `lib/config/secrets_example.dart` в `lib/config/secrets.dart` и указать реквизиты в приложении после запуска.
+Используйте Flutter 3.44.2, Android SDK 36 с NDK 28.2.13676358, Xcode и CocoaPods. Реквизиты Telegram можно ввести в приложении после запуска.
 
 ```bash
+test -f lib/config/secrets.dart || cp lib/config/secrets_example.dart lib/config/secrets.dart
 flutter config --enable-swift-package-manager
 flutter pub get
 scripts/build-tdjson-android.sh arm64-v8a
