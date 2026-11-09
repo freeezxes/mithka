@@ -388,6 +388,18 @@ class AiProviderListView extends StatelessWidget {
                 ),
                 onTap: () => _push(context, const AiProviderEditorView()),
               ),
+              if (!providers.any(
+                (provider) => provider.endpoint == alemQwenEndpoint,
+              ))
+                SettingsRow(
+                  title: 'Alem.ai',
+                  subtitle: 'Qwen 3.6',
+                  leading: const SettingsLeadingIcon(icon: HeroAppIcons.server),
+                  onTap: () => _push(
+                    context,
+                    const AiProviderEditorView(alemQwen: true),
+                  ),
+                ),
             ],
           ),
           if (providers.isEmpty)
@@ -404,10 +416,12 @@ class AiProviderEditorView extends StatefulWidget {
     super.key,
     this.provider,
     this.initialApiKey = '',
+    this.alemQwen = false,
   });
 
   final AiServerProvider? provider;
   final String initialApiKey;
+  final bool alemQwen;
 
   @override
   State<AiProviderEditorView> createState() => _AiProviderEditorViewState();
@@ -424,8 +438,14 @@ class _AiProviderEditorViewState extends State<AiProviderEditorView> {
   @override
   void initState() {
     super.initState();
-    _name = TextEditingController(text: widget.provider?.name ?? '');
-    _endpoint = TextEditingController(text: widget.provider?.endpoint ?? '');
+    _name = TextEditingController(
+      text: widget.provider?.name ?? (widget.alemQwen ? 'Alem.ai' : ''),
+    );
+    _endpoint = TextEditingController(
+      text:
+          widget.provider?.endpoint ??
+          (widget.alemQwen ? alemQwenEndpoint : ''),
+    );
     _apiKey = TextEditingController(text: widget.initialApiKey);
     _endpointStyle =
         widget.provider?.endpointStyle ?? AiEndpointStyle.openAiChatCompletions;
@@ -443,47 +463,52 @@ class _AiProviderEditorViewState extends State<AiProviderEditorView> {
   Widget build(BuildContext context) {
     final c = context.colors;
     return SettingsPageScaffold(
-      title:
-          (widget.provider == null
-                  ? AppStringKeys.aiAddProvider
-                  : AppStringKeys.aiEditProvider)
-              .l10n(context),
+      title: widget.alemQwen
+          ? 'Alem.ai · Qwen 3.6'
+          : (widget.provider == null
+                    ? AppStringKeys.aiAddProvider
+                    : AppStringKeys.aiEditProvider)
+                .l10n(context),
       onBack: () => Navigator.of(context).pop(),
       child: SettingsListView(
         children: [
-          _inputField(
-            context,
-            controller: _name,
-            icon: HeroAppIcons.server,
-            label: AppStringKeys.aiProviderName.l10n(context),
-            hint: AppStringKeys.aiProviderNameHint.l10n(context),
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          SettingsCard(
-            children: [
-              SettingsRow(
-                key: const ValueKey('aiEndpointStyleRow'),
-                title: AppStringKeys.aiEndpointStyle.l10n(context),
-                value: _endpointStyleLabel(context, _endpointStyle),
-                leading: const SettingsLeadingIcon(icon: HeroAppIcons.code),
-                onTap: _pickEndpointStyle,
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          _inputField(
-            context,
-            controller: _endpoint,
-            icon: HeroAppIcons.link,
-            label: AppStringKeys.aiServerEndpoint.l10n(context),
-            hint: _endpointStyle.exampleEndpoint,
-            keyboardType: TextInputType.url,
-          ),
-          SettingsNote(
-            text: context.l10n.t(AppStringKeys.aiServerEndpointHelp, {
-              'value1': _endpointStyle.exampleEndpoint,
-            }),
-          ),
+          if (widget.alemQwen)
+            const SettingsNote(text: 'Укажите API-ключ Qwen 3.6 из Alem Plus.'),
+          if (!widget.alemQwen) ...[
+            _inputField(
+              context,
+              controller: _name,
+              icon: HeroAppIcons.server,
+              label: AppStringKeys.aiProviderName.l10n(context),
+              hint: AppStringKeys.aiProviderNameHint.l10n(context),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            SettingsCard(
+              children: [
+                SettingsRow(
+                  key: const ValueKey('aiEndpointStyleRow'),
+                  title: AppStringKeys.aiEndpointStyle.l10n(context),
+                  value: _endpointStyleLabel(context, _endpointStyle),
+                  leading: const SettingsLeadingIcon(icon: HeroAppIcons.code),
+                  onTap: _pickEndpointStyle,
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            _inputField(
+              context,
+              controller: _endpoint,
+              icon: HeroAppIcons.link,
+              label: AppStringKeys.aiServerEndpoint.l10n(context),
+              hint: _endpointStyle.exampleEndpoint,
+              keyboardType: TextInputType.url,
+            ),
+            SettingsNote(
+              text: context.l10n.t(AppStringKeys.aiServerEndpointHelp, {
+                'value1': _endpointStyle.exampleEndpoint,
+              }),
+            ),
+          ],
           const SizedBox(height: AppSpacing.sm),
           _inputField(
             context,
@@ -530,21 +555,37 @@ class _AiProviderEditorViewState extends State<AiProviderEditorView> {
 
   Future<void> _save() async {
     if (_saving) return;
+    if (widget.alemQwen && _apiKey.text.trim().isEmpty) {
+      showToast(context, 'Введите API-ключ Alem.ai.');
+      return;
+    }
     setState(() => _saving = true);
     try {
-      await context.read<AiSettingsController>().saveServerProvider(
+      final settings = context.read<AiSettingsController>();
+      final provider = await settings.saveServerProvider(
         id: widget.provider?.id,
         name: _name.text,
         endpoint: _endpoint.text,
         apiKey: _apiKey.text,
         endpointStyle: _endpointStyle,
       );
+      if (widget.alemQwen) {
+        await settings.saveModelProfile(
+          providerId: provider.id,
+          model: alemQwenModel,
+          contextWindowTokens: AiModelProfile.defaultContextWindowTokens,
+        );
+      }
       if (!mounted) return;
       showToast(context, AppStringKeys.aiSaved.l10n(context));
       Navigator.of(context).pop();
     } on FormatException {
       if (!mounted) return;
       showToast(context, AppStringKeys.aiInvalidEndpoint.l10n(context));
+      setState(() => _saving = false);
+    } catch (_) {
+      if (!mounted) return;
+      showToast(context, 'Не удалось сохранить API-ключ.');
       setState(() => _saving = false);
     }
   }

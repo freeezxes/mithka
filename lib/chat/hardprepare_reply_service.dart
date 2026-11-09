@@ -37,9 +37,9 @@ class HardPrepareReplyService {
       model = profile.model;
       _apiKey = settings!.apiKeyForServerProvider(provider.id);
     } else {
-      _style = AiEndpointStyle.ollamaChat;
-      _endpoint = Uri.parse('http://127.0.0.1:11434/api/chat');
-      model = 'qwen2.5:3b';
+      _style = AiEndpointStyle.openAiChatCompletions;
+      _endpoint = Uri.parse(alemQwenEndpoint);
+      model = alemQwenModel;
       _apiKey = '';
     }
   }
@@ -59,6 +59,12 @@ class HardPrepareReplyService {
         'Опишите вопрос клиента в 1200 символах.',
       );
     }
+    final isAlem = _endpoint.host == 'llm.alem.ai';
+    if (isAlem && _apiKey.isEmpty) {
+      throw const HardPrepareReplyError(
+        'Добавьте API-ключ Alem.ai в настройках AI.',
+      );
+    }
     final abort = Completer<void>();
     final request =
         http.AbortableRequest('POST', _endpoint, abortTrigger: abort.future)
@@ -70,7 +76,9 @@ class HardPrepareReplyService {
               instructions: _instructions,
               input: input,
               stream: false,
-              maximumOutputTokens: 300,
+              maximumOutputTokens: isAlem && model == alemQwenModel
+                  ? 1800
+                  : 300,
             ),
           );
     final response = await _client

@@ -3123,9 +3123,33 @@ class _ChatInputBarState extends State<ChatInputBar>
   Future<void> _openHardPrepareReply() async {
     if (!_canOpenHardPrepareReply) return;
     final owner = vm;
-    final service = HardPrepareReplyService(
-      settings: context.read<AiSettingsController?>(),
-    );
+    final settings = context.read<AiSettingsController?>();
+    if (settings != null &&
+        (settings.activeModelProfile == null ||
+            settings.activeServerProvider == null)) {
+      final provider = settings.serverProviders
+          .where((provider) => provider.endpoint == alemQwenEndpoint)
+          .firstOrNull;
+      await Navigator.of(context).push<void>(
+        AppPageRoute<void>(
+          pageBuilder: (_, _, _) => AiProviderEditorView(
+            provider: provider,
+            initialApiKey: provider == null
+                ? ''
+                : settings.apiKeyForServerProvider(provider.id),
+            alemQwen: true,
+          ),
+        ),
+      );
+      if (!mounted ||
+          !identical(vm, owner) ||
+          vm.accountSlot != TdClient.shared.activeSlot ||
+          !_canOpenHardPrepareReply ||
+          settings.activeModelProfile == null) {
+        return;
+      }
+    }
+    final service = HardPrepareReplyService(settings: settings);
     final reply = await showHardPrepareReplyDialog(context, service);
     if (!mounted ||
         reply == null ||

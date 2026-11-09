@@ -77,7 +77,23 @@ void main() {
         await tester.pumpAndSettle();
         expect(find.text('Где был'), findsOneWidget);
         expect(find.text('Первый визит 09.11.2026 12:00'), findsOneWidget);
+        await tester.tap(find.text('Учёба'));
+        await tester.pumpAndSettle();
+        expect(find.text('Studio за 30 дней'), findsOneWidget);
+        expect(find.text('Пробный NUET'), findsOneWidget);
+        await tester.tap(find.text('Заявки и оплата'));
+        await tester.pumpAndSettle();
+        expect(find.text('Счета и оплаты'), findsOneWidget);
+        await tester.ensureVisible(find.text('История'));
+        await tester.tap(find.text('История'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Показать более ранние события'));
+        await tester.pumpAndSettle();
+        expect(find.text('Первое посещение'), findsOneWidget);
+        expect(find.text('Показать более ранние события'), findsNothing);
         await tester.binding.setSurfaceSize(const Size(920, 850));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Обзор'));
         await tester.pumpAndSettle();
         expect(find.text('Где был'), findsOneWidget);
         expect(find.text('Повторить'), findsNothing);
@@ -95,13 +111,63 @@ void main() {
             expect(request.headers['authorization'], 'Bearer $token');
             expect(body['telegram_id'], '123456');
             if (contactRequests++ == 0) return http.Response('{}', 503);
-            return http.Response(
-              jsonEncode({
-                'status': 'found',
-                'platforms': [
-                  {'studio': 'nuet', 'first_seen_at': '2026-11-09 07:00:00'},
-                ],
-              }),
+            return http.Response.bytes(
+              utf8.encode(
+                jsonEncode({
+                  'status': 'found',
+                  'platforms': [
+                    {'studio': 'nuet', 'first_seen_at': '2026-11-09 07:00:00'},
+                  ],
+                  'study': {
+                    'results': [
+                      {'title': 'Пробный NUET', 'score': 37, 'total': 60},
+                    ],
+                  },
+                  'studio_learning': {
+                    'status': 'available',
+                    'totals': {
+                      'bank_answers': 23,
+                      'mock_answers': 8,
+                      'checked': 10,
+                      'correct': 7,
+                      'starts': 1,
+                      'completions': 0,
+                    },
+                  },
+                  'payments': [
+                    {
+                      'title': 'NUET State',
+                      'amount_kzt': 9900,
+                      'status': 'paid',
+                    },
+                  ],
+                  'event_count': 2,
+                  'events': [
+                    {
+                      'id': 2,
+                      'message': 'Закончил работу',
+                      'occurred_at': '2026-11-09 07:00:00',
+                    },
+                  ],
+                }),
+              ),
+              200,
+            );
+          case 'history':
+            expect(body, {'telegram_id': '123456', 'offset': 1});
+            return http.Response.bytes(
+              utf8.encode(
+                jsonEncode({
+                  'event_count': 2,
+                  'events': [
+                    {
+                      'id': 1,
+                      'message': 'Первое посещение',
+                      'occurred_at': '2026-11-08 07:00:00',
+                    },
+                  ],
+                }),
+              ),
               200,
             );
           default:

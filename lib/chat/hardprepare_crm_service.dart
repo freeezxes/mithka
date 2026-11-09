@@ -28,7 +28,19 @@ class HardPrepareCrmService {
   final int accountSlot;
   final _td = TdClient.shared;
 
-  Future<Map<String, dynamic>> readContact(int telegramId) async {
+  Future<Map<String, dynamic>> readContact(int telegramId) =>
+      _authorizedRequest('contact', {'telegram_id': telegramId.toString()});
+
+  Future<Map<String, dynamic>> readHistory(int telegramId, int offset) =>
+      _authorizedRequest('history', {
+        'telegram_id': telegramId.toString(),
+        'offset': offset,
+      });
+
+  Future<Map<String, dynamic>> _authorizedRequest(
+    String endpoint,
+    Map<String, Object> body,
+  ) async {
     final clientId = _td.activeClientId;
     _checkAccount(clientId);
     try {
@@ -40,7 +52,7 @@ class HardPrepareCrmService {
       if (session?.clientId != clientId) session = null;
       if (session != null) {
         try {
-          return await _read(telegramId, clientId, session.token);
+          return await _read(endpoint, body, clientId, session.token);
         } on HardPrepareCrmException catch (error) {
           if (error.status != 401) rethrow;
           if (_session == session) _session = null;
@@ -48,7 +60,7 @@ class HardPrepareCrmService {
       }
       final token = await _signIn(clientId);
       _session = (clientId: clientId, token: token);
-      return await _read(telegramId, clientId, token);
+      return await _read(endpoint, body, clientId, token);
     } on TdError {
       throw const HardPrepareCrmException(
         'Telegram не подтвердил вход. Попробуйте снова.',
@@ -142,16 +154,13 @@ class HardPrepareCrmService {
   }
 
   Future<Map<String, dynamic>> _read(
-    int telegramId,
+    String endpoint,
+    Map<String, Object> body,
     int clientId,
     String token,
   ) async {
     _checkAccount(clientId);
-    final contact = await _request(
-      'contact',
-      token: token,
-      body: {'telegram_id': telegramId.toString()},
-    );
+    final contact = await _request(endpoint, token: token, body: body);
     _checkAccount(clientId);
     return contact;
   }
@@ -159,7 +168,7 @@ class HardPrepareCrmService {
   Future<Map<String, dynamic>> _request(
     String endpoint, {
     String? token,
-    required Map<String, String> body,
+    required Map<String, Object> body,
   }) async {
     final client = http.Client();
     try {

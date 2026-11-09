@@ -2,12 +2,16 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'ai_endpoint_style.dart';
 import 'apple_pcc_api.dart';
 import 'openai_compatible_models_api.dart';
+
+const alemQwenEndpoint = 'https://llm.alem.ai/v1/chat/completions';
+const alemQwenModel = 'qwen3-6';
 
 const defaultAiReplyPrompt = '''
 Reply naturally and concisely in my usual tone. Address the latest question or
@@ -329,6 +333,9 @@ class AiSettingsController extends ChangeNotifier {
   static const openAiChatCompletionsPath = '/v1/chat/completions';
 
   static const _secureStorage = FlutterSecureStorage();
+  static const _macLoginKeychain = MacOsOptions(
+    usesDataProtectionKeychain: false,
+  );
   static const _profileApiKeyPrefix = 'mithka.ai.provider.';
   static const _profileApiKeySuffix = '.api_key.v1';
 
@@ -1539,13 +1546,38 @@ class AiSettingsController extends ChangeNotifier {
     }
   }
 
-  static Future<String?> _defaultSecureRead(String key) =>
-      _secureStorage.read(key: key);
+  static Future<String?> _defaultSecureRead(String key) async {
+    try {
+      final value = await _secureStorage.read(key: key);
+      if (!Platform.isMacOS || value != null) return value;
+    } on PlatformException catch (error) {
+      if (!Platform.isMacOS || error.details != -34018) rethrow;
+    }
+    return _secureStorage.read(key: key, mOptions: _macLoginKeychain);
+  }
 
-  static Future<void> _defaultSecureWrite(String key, String? value) =>
-      value == null
-      ? _secureStorage.delete(key: key)
-      : _secureStorage.write(key: key, value: value);
+  static Future<void> _defaultSecureWrite(String key, String? value) async {
+    try {
+      if (value != null) {
+        await _secureStorage.write(key: key, value: value);
+        return;
+      }
+      await _secureStorage.delete(key: key);
+    } on PlatformException catch (error) {
+      if (!Platform.isMacOS || error.details != -34018) rethrow;
+    }
+    if (!Platform.isMacOS) return;
+    // Local Mac builds lack the entitlement for the Data Protection keychain.
+    if (value == null) {
+      await _secureStorage.delete(key: key, mOptions: _macLoginKeychain);
+    } else {
+      await _secureStorage.write(
+        key: key,
+        value: value,
+        mOptions: _macLoginKeychain,
+      );
+    }
+  }
 }
 
 extension<T> on List<T> {

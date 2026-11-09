@@ -13,7 +13,9 @@ import 'package:mithka/chat/hardprepare_reply_dialog.dart';
 import 'package:mithka/chat/hardprepare_reply_service.dart';
 import 'package:mithka/components/app_icons.dart';
 import 'package:mithka/l10n/app_localizations.dart';
+import 'package:mithka/settings/ai_settings_controller.dart';
 import 'package:mithka/theme/app_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   const brief = 'Клиент спрашивает о пробном NUET.';
@@ -93,13 +95,29 @@ void main() {
       final response = Completer<http.Response>();
       var calls = 0;
       String? inserted;
+      SharedPreferences.setMockInitialValues({});
+      final settings = AiSettingsController(
+        await SharedPreferences.getInstance(),
+        secureRead: (_) async => null,
+        secureWrite: (_, _) async {},
+      );
+      addTearDown(settings.dispose);
+      await settings.saveServerProfile(
+        name: 'Alem.ai',
+        endpoint: alemQwenEndpoint,
+        model: alemQwenModel,
+        apiKey: 'fixture-key',
+        contextWindowTokens: AiModelProfile.defaultContextWindowTokens,
+      );
       final service = http.runWithClient(
-        HardPrepareReplyService.new,
+        () => HardPrepareReplyService(settings: settings),
         () => MockClient((request) async {
           calls++;
-          expect(request.url.toString(), 'http://127.0.0.1:11434/api/chat');
+          expect(request.url.toString(), alemQwenEndpoint);
+          expect(request.headers['authorization'], 'Bearer fixture-key');
           expect(request.followRedirects, isFalse);
           final body = jsonDecode(utf8.decode(request.bodyBytes)) as Map;
+          expect(body['model'], alemQwenModel);
           expect(body['messages'], [
             {'role': 'system', 'content': contains('HardPrepare')},
             {'role': 'user', 'content': brief},
@@ -139,7 +157,11 @@ void main() {
         http.Response.bytes(
           utf8.encode(
             jsonEncode({
-              'message': {'content': suggestion},
+              'choices': [
+                {
+                  'message': {'content': suggestion},
+                },
+              ],
             }),
           ),
           200,
