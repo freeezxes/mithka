@@ -126,7 +126,7 @@
             </intent-filter>
         </activity>
         <activity-alias
-            android:name=".MainActivityDefault"
+            android:name="${applicationId}.MainActivityDefault"
             android:enabled="true"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
@@ -138,7 +138,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityWhite"
+            android:name="${applicationId}.MainActivityWhite"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_white"
@@ -150,7 +150,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityBlue"
+            android:name="${applicationId}.MainActivityBlue"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_blue"
@@ -162,7 +162,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityPurple"
+            android:name="${applicationId}.MainActivityPurple"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_purple"
@@ -174,7 +174,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityPixel"
+            android:name="${applicationId}.MainActivityPixel"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_pixel"
@@ -186,7 +186,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityAurora"
+            android:name="${applicationId}.MainActivityAurora"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_aurora"
@@ -198,7 +198,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityPrism"
+            android:name="${applicationId}.MainActivityPrism"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_prism"
@@ -210,7 +210,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivitySignal"
+            android:name="${applicationId}.MainActivitySignal"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_signal"
@@ -222,7 +222,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityPilot"
+            android:name="${applicationId}.MainActivityPilot"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_pilot"
@@ -234,7 +234,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityHeadphones"
+            android:name="${applicationId}.MainActivityHeadphones"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_headphones"
@@ -246,7 +246,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityWinter"
+            android:name="${applicationId}.MainActivityWinter"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_winter"
@@ -258,7 +258,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityAstronaut"
+            android:name="${applicationId}.MainActivityAstronaut"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_astronaut"
@@ -270,7 +270,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityCrown"
+            android:name="${applicationId}.MainActivityCrown"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_crown"
@@ -282,7 +282,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityParty"
+            android:name="${applicationId}.MainActivityParty"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_party"
@@ -294,7 +294,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivitySleepy"
+            android:name="${applicationId}.MainActivitySleepy"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_sleepy"
@@ -306,7 +306,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityHeart"
+            android:name="${applicationId}.MainActivityHeart"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_heart"
@@ -318,7 +318,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityCoffee"
+            android:name="${applicationId}.MainActivityCoffee"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_coffee"
@@ -330,7 +330,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityDetective"
+            android:name="${applicationId}.MainActivityDetective"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_detective"
@@ -342,7 +342,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityGamer"
+            android:name="${applicationId}.MainActivityGamer"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_gamer"
@@ -354,7 +354,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityFishing"
+            android:name="${applicationId}.MainActivityFishing"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_fishing"
@@ -371,7 +371,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
         <activity-alias
-            android:name=".MainActivitySkateboard"
+            android:name="${applicationId}.MainActivitySkateboard"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_skateboard"
@@ -383,7 +383,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivitySurfboard"
+            android:name="${applicationId}.MainActivitySurfboard"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_surfboard"
@@ -395,7 +395,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityBasketball"
+            android:name="${applicationId}.MainActivityBasketball"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_basketball"
@@ -407,7 +407,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityFootball"
+            android:name="${applicationId}.MainActivityFootball"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_football"
@@ -419,7 +419,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityTennis"
+            android:name="${applicationId}.MainActivityTennis"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_tennis"
@@ -431,7 +431,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivitySkiing"
+            android:name="${applicationId}.MainActivitySkiing"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_skiing"
@@ -443,7 +443,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityPainter"
+            android:name="${applicationId}.MainActivityPainter"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_painter"
@@ -455,7 +455,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityGuitar"
+            android:name="${applicationId}.MainActivityGuitar"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_guitar"
@@ -467,7 +467,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityDrummer"
+            android:name="${applicationId}.MainActivityDrummer"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_drummer"
@@ -479,7 +479,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityPhotographer"
+            android:name="${applicationId}.MainActivityPhotographer"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_photographer"
@@ -491,7 +491,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityMagician"
+            android:name="${applicationId}.MainActivityMagician"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_magician"
@@ -503,7 +503,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityChef"
+            android:name="${applicationId}.MainActivityChef"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_chef"
@@ -515,7 +515,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityReader"
+            android:name="${applicationId}.MainActivityReader"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_reader"
@@ -527,7 +527,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityScientist"
+            android:name="${applicationId}.MainActivityScientist"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_scientist"
@@ -539,7 +539,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityGardener"
+            android:name="${applicationId}.MainActivityGardener"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_gardener"
@@ -551,7 +551,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityMailCarrier"
+            android:name="${applicationId}.MainActivityMailCarrier"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_mail_carrier"
@@ -563,7 +563,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityPirate"
+            android:name="${applicationId}.MainActivityPirate"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_pirate"
@@ -575,7 +575,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityDragon"
+            android:name="${applicationId}.MainActivityDragon"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_dragon"
@@ -587,7 +587,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityBubblegum"
+            android:name="${applicationId}.MainActivityBubblegum"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_bubblegum"
@@ -599,7 +599,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityRaincoat"
+            android:name="${applicationId}.MainActivityRaincoat"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_raincoat"
@@ -611,7 +611,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityNoodles"
+            android:name="${applicationId}.MainActivityNoodles"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_noodles"
@@ -623,7 +623,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityIceCream"
+            android:name="${applicationId}.MainActivityIceCream"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_ice_cream"
@@ -635,7 +635,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivitySunflower"
+            android:name="${applicationId}.MainActivitySunflower"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_sunflower"
@@ -647,7 +647,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityNinja"
+            android:name="${applicationId}.MainActivityNinja"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_ninja"
@@ -659,7 +659,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityHighFive"
+            android:name="${applicationId}.MainActivityHighFive"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_high_five"
@@ -671,7 +671,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityHug"
+            android:name="${applicationId}.MainActivityHug"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_hug"
@@ -683,7 +683,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivitySeesaw"
+            android:name="${applicationId}.MainActivitySeesaw"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_seesaw"
@@ -695,7 +695,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityDance"
+            android:name="${applicationId}.MainActivityDance"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_dance"
@@ -707,7 +707,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityPillowFight"
+            android:name="${applicationId}.MainActivityPillowFight"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_pillow_fight"
@@ -719,7 +719,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivitySnowball"
+            android:name="${applicationId}.MainActivitySnowball"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_snowball"
@@ -731,7 +731,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityParade"
+            android:name="${applicationId}.MainActivityParade"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_parade"
@@ -743,7 +743,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityChoir"
+            android:name="${applicationId}.MainActivityChoir"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_choir"
@@ -755,7 +755,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityStack"
+            android:name="${applicationId}.MainActivityStack"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_stack"
@@ -767,7 +767,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityPicnic"
+            android:name="${applicationId}.MainActivityPicnic"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_picnic"
@@ -779,7 +779,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityPaperPlanes"
+            android:name="${applicationId}.MainActivityPaperPlanes"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_paper_planes"
@@ -791,7 +791,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityStargazing"
+            android:name="${applicationId}.MainActivityStargazing"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_stargazing"
@@ -803,7 +803,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityPixelNeutral"
+            android:name="${applicationId}.MainActivityPixelNeutral"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_pixel_neutral"
@@ -815,7 +815,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityPixelGradient"
+            android:name="${applicationId}.MainActivityPixelGradient"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_pixel_gradient"
@@ -827,7 +827,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityLetterMNeutral"
+            android:name="${applicationId}.MainActivityLetterMNeutral"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_letter_m_neutral"
@@ -839,7 +839,7 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".MainActivityLetterMGradient"
+            android:name="${applicationId}.MainActivityLetterMGradient"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_letter_m_gradient"
