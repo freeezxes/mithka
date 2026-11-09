@@ -31,7 +31,7 @@ class _HardPrepareCrmViewState extends State<HardPrepareCrmView> {
   StreamSubscription<int>? _accountChanges;
   Map<String, dynamic>? _contact;
   String? _error;
-  bool _busy = true;
+  bool _busy = false;
 
   @override
   void initState() {
@@ -55,6 +55,7 @@ class _HardPrepareCrmViewState extends State<HardPrepareCrmView> {
   }
 
   Future<void> _load() async {
+    if (_busy) return;
     setState(() {
       _busy = true;
       _error = null;
@@ -62,11 +63,16 @@ class _HardPrepareCrmViewState extends State<HardPrepareCrmView> {
     try {
       final contact = await _service.readContact(widget.telegramId);
       if (mounted) setState(() => _contact = contact);
-    } on HardPrepareCrmException catch (error) {
+    } catch (error) {
       if (!mounted) return;
+      if (error is! HardPrepareCrmException) {
+        debugPrint('CRM contact load failed: ${error.runtimeType}');
+      }
       setState(() {
         _contact = null;
-        _error = error.message;
+        _error = error is HardPrepareCrmException
+            ? error.message
+            : 'Не удалось загрузить карточку клиента.';
       });
     } finally {
       if (mounted) setState(() => _busy = false);
@@ -97,16 +103,32 @@ class _HardPrepareCrmViewState extends State<HardPrepareCrmView> {
         children: [
           if (contact != null)
             HardPrepareCrmCard(contact: contact, chatName: widget.chatName),
-          if (_busy)
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
-              child: LinearProgressIndicator(semanticsLabel: 'Загрузка CRM'),
+          if (_busy || _error != null) ...[
+            if (contact == null) ...[
+              Text(
+                widget.chatName,
+                style: AppTextStyle.title(context.colors.textPrimary),
+              ),
+              const SizedBox(height: AppSpacing.sm),
+            ],
+            Semantics(
+              liveRegion: true,
+              child: Text(
+                _busy ? 'Загружаем карточку клиента…' : _error!,
+                style: AppTextStyle.body(context.colors.textPrimary),
+              ),
             ),
-          if (_error case final error?) ...[
-            const SizedBox(height: AppSpacing.lg),
-            Semantics(liveRegion: true, child: Text(error)),
-            if (!_busy)
-              TextButton(onPressed: _load, child: const Text('Повторить')),
+            const SizedBox(height: AppSpacing.md),
+            if (_busy)
+              const LinearProgressIndicator()
+            else
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: TextButton(
+                  onPressed: _load,
+                  child: const Text('Повторить'),
+                ),
+              ),
           ],
         ],
       ),
@@ -170,7 +192,7 @@ class HardPrepareCrmCard extends StatelessWidget {
     'refunded': 'Возврат',
   };
 
-  static final _date = DateFormat('dd.MM.yyyy HH:mm');
+  static final _date = DateFormat('dd.MM.yyyy HH:mm', 'en_US');
   static final _money = NumberFormat.decimalPattern('ru');
 
   List<Map<String, dynamic>> _rows(String key) =>

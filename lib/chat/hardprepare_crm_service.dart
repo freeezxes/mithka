@@ -109,12 +109,23 @@ class HardPrepareCrmService {
         'mode': {'@type': 'webAppOpenModeFullSize'},
       },
     }, clientId);
-    final url = app.str('url') ?? app.obj('url')?.str('url');
-    final uri = Uri.tryParse(url ?? '');
-    if (uri == null || uri.scheme != 'https' || uri.host != 'hardprepare.com') {
-      throw const HardPrepareCrmException('Telegram не подтвердил вход.');
+    // Current TDLib wraps the URL in webAppUrl. Older builds returned a string.
+    final url = switch (app['url']) {
+      {'url': final String url} => url,
+      final String url => url,
+      _ => '',
+    };
+    final uri = Uri.tryParse(url);
+    String? initData;
+    if (uri != null && uri.scheme == 'https' && uri.host == 'hardprepare.com') {
+      try {
+        initData = Uri.splitQueryString(uri.fragment)['tgWebAppData'];
+      } on FormatException {
+        throw const HardPrepareCrmException(
+          'Telegram вернул неверную ссылку входа.',
+        );
+      }
     }
-    final initData = Uri.splitQueryString(uri.fragment)['tgWebAppData'];
     if (initData == null || initData.isEmpty) {
       throw const HardPrepareCrmException('Telegram не подтвердил вход.');
     }
