@@ -112,6 +112,7 @@ import 'forum_topic_transcript.dart';
 import 'forward_markdown.dart';
 import 'forward_options.dart';
 import 'group_remark_controller.dart';
+import 'hardprepare_crm_service.dart';
 import 'hardprepare_crm_view.dart';
 import 'hide_sender_dialog.dart';
 import 'image_media_album_bubble.dart';
@@ -6912,6 +6913,7 @@ class _ChatViewState extends State<ChatView> {
   }
 
   bool get _hasHardPrepareContact =>
+      _vm.meId == HardPrepareCrmService.supportUserId &&
       _vm.chatKind == ChatKind.privateChat &&
       (_vm.peerUserId ?? 0) > 0 &&
       !_vm.isSavedMessages;
@@ -6923,8 +6925,11 @@ class _ChatViewState extends State<ChatView> {
     unawaited(
       Navigator.of(context).push<void>(
         AppPageRoute<void>(
-          pageBuilder: (_, _, _) =>
-              HardPrepareCrmView(telegramId: telegramId, chatName: chatName),
+          pageBuilder: (_, _, _) => HardPrepareCrmView(
+            accountSlot: _sessionKey.accountSlot,
+            telegramId: telegramId,
+            chatName: chatName,
+          ),
         ),
       ),
     );

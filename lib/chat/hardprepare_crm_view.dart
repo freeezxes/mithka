@@ -1,22 +1,24 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 import '../components/app_icons.dart';
 import '../components/app_interactive_surface.dart';
 import '../components/ui_components.dart';
+import '../tdlib/td_client.dart';
 import '../theme/app_theme.dart';
 import 'hardprepare_crm_service.dart';
 
 class HardPrepareCrmView extends StatefulWidget {
   const HardPrepareCrmView({
     super.key,
+    required this.accountSlot,
     required this.telegramId,
     required this.chatName,
   });
 
+  final int accountSlot;
   final int telegramId;
   final String chatName;
 
@@ -25,101 +27,51 @@ class HardPrepareCrmView extends StatefulWidget {
 }
 
 class _HardPrepareCrmViewState extends State<HardPrepareCrmView> {
-  final _service = HardPrepareCrmService();
-  final _user = TextEditingController();
-  final _password = TextEditingController();
-  final _code = TextEditingController();
+  late final _service = HardPrepareCrmService(widget.accountSlot);
+  StreamSubscription<int>? _accountChanges;
   Map<String, dynamic>? _contact;
   String? _error;
-  bool _busy = false;
-  bool _needsLogin = false;
-  bool _needsCode = false;
+  bool _busy = true;
 
   @override
   void initState() {
     super.initState();
+    _accountChanges = TdClient.shared.subscribeActiveSlotChanges().listen((
+      slot,
+    ) {
+      if (slot == widget.accountSlot || !mounted) return;
+      setState(() {
+        _contact = null;
+        _error = HardPrepareCrmService.accountRequired.message;
+      });
+    });
     unawaited(_load());
   }
 
   @override
   void dispose() {
-    _user.dispose();
-    _password.dispose();
-    _code.dispose();
+    unawaited(_accountChanges?.cancel());
     super.dispose();
   }
 
-  Future<void> _run(
-    Future<void> Function() action, {
-    bool login = false,
-  }) async {
-    if (_busy) return;
+  Future<void> _load() async {
     setState(() {
       _busy = true;
       _error = null;
     });
     try {
-      await action();
+      final contact = await _service.readContact(widget.telegramId);
+      if (mounted) setState(() => _contact = contact);
     } on HardPrepareCrmException catch (error) {
       if (!mounted) return;
       setState(() {
-        if (error.status == 401) {
-          _needsLogin = true;
-          _contact = null;
-        }
-        if (login || error.status != 401) _error = error.message;
-        if (login) _needsCode = error.needsCode;
+        _contact = null;
+        _error = error.message;
       });
-    } on PlatformException {
-      if (mounted) {
-        setState(
-          () => _error = 'Не удалось открыть хранилище ключей устройства.',
-        );
-      }
     } finally {
       if (mounted) setState(() => _busy = false);
     }
   }
-
-  Future<void> _readContact() async {
-    final contact = await _service.readContact(widget.telegramId);
-    if (!mounted) return;
-    setState(() {
-      _needsLogin = false;
-      _contact = contact;
-    });
-  }
-
-  Future<void> _load() => _run(_readContact);
-
-  Future<void> _signIn() async {
-    if (_user.text.trim().isEmpty || _password.text.isEmpty) {
-      setState(() => _error = 'Введите логин и пароль консоли.');
-      return;
-    }
-    FocusScope.of(context).unfocus();
-    await _run(() async {
-      await _service.signIn(
-        _user.text.trim(),
-        _password.text,
-        _code.text.trim(),
-      );
-      if (!mounted) return;
-      _password.clear();
-      _code.clear();
-      setState(() => _needsLogin = false);
-      await _readContact();
-    }, login: true);
-  }
-
-  Future<void> _signOut() => _run(() async {
-    await _service.signOut();
-    if (!mounted) return;
-    setState(() {
-      _contact = null;
-      _needsLogin = true;
-    });
-  });
 
   Widget _action(String label, AppIconData icon, VoidCallback onTap) => Tooltip(
     message: label,
@@ -140,74 +92,11 @@ class _HardPrepareCrmViewState extends State<HardPrepareCrmView> {
       title: 'Карточка клиента',
       trailing: contact == null
           ? null
-          : Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _action('Обновить карточку', HeroAppIcons.arrowsRotate, _load),
-                _action(
-                  'Выйти из CRM',
-                  HeroAppIcons.rightFromBracket,
-                  _signOut,
-                ),
-              ],
-            ),
+          : _action('Обновить карточку', HeroAppIcons.arrowsRotate, _load),
       child: SettingsListView(
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
-          if (_needsLogin) ...[
-            Text(
-              'Вход в HardPrepare',
-              style: AppTextStyle.title(context.colors.textPrimary),
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            const Text('Используйте логин и пароль консоли HardPrepare.'),
-            const SizedBox(height: AppSpacing.xxl),
-            TextField(
-              controller: _user,
-              enabled: !_busy,
-              decoration: const InputDecoration(
-                labelText: 'Логин',
-                border: OutlineInputBorder(),
-              ),
-              textInputAction: TextInputAction.next,
-              autocorrect: false,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            TextField(
-              controller: _password,
-              enabled: !_busy,
-              decoration: const InputDecoration(
-                labelText: 'Пароль',
-                border: OutlineInputBorder(),
-              ),
-              obscureText: true,
-              onSubmitted: _needsCode ? null : (_) => unawaited(_signIn()),
-            ),
-            if (_needsCode) ...[
-              const SizedBox(height: AppSpacing.lg),
-              TextField(
-                controller: _code,
-                enabled: !_busy,
-                decoration: const InputDecoration(
-                  labelText: 'Одноразовый код',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                onSubmitted: (_) => unawaited(_signIn()),
-              ),
-            ],
-            const SizedBox(height: AppSpacing.lg),
-            FilledButton(
-              onPressed: _busy ? null : _signIn,
-              style: FilledButton.styleFrom(
-                minimumSize: const Size.fromHeight(AppMetric.hitTarget),
-              ),
-              child: const Text('Войти в CRM'),
-            ),
-          ] else if (contact != null) ...[
+          if (contact != null)
             HardPrepareCrmCard(contact: contact, chatName: widget.chatName),
-          ],
           if (_busy)
             const Padding(
               padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
@@ -216,7 +105,7 @@ class _HardPrepareCrmViewState extends State<HardPrepareCrmView> {
           if (_error case final error?) ...[
             const SizedBox(height: AppSpacing.lg),
             Semantics(liveRegion: true, child: Text(error)),
-            if (!_needsLogin && !_busy)
+            if (!_busy)
               TextButton(onPressed: _load, child: const Text('Повторить')),
           ],
         ],
